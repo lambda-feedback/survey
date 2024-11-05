@@ -27,9 +27,26 @@ class TestEvaluationFunction(unittest.TestCase):
 
     def test_returns_is_correct_true(self):
         response, answer, params = None, None, Params()
+
         result = evaluation_function(response, answer, params)
 
         self.assertEqual(result.get("is_correct"), True)
+
+    def test_returns_default_feedback(self):
+        response, answer, params = None, None, Params()
+        result = evaluation_function(response, answer, params)
+
+        self.assertEqual(result.get("feedback"),
+                         "Thank you. Your response has been logged")
+
+    def test_returns_custom_feedback(self):
+        custom_feedback = "#¢∞ 234"
+        response, answer = None, None
+        params = {"custom_feedback": custom_feedback}
+        result = evaluation_function(response, answer, params)
+
+        self.assertEqual(result.get("feedback"),
+                         custom_feedback)
 
 
 if __name__ == "__main__":

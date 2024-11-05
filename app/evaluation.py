@@ -33,4 +33,9 @@ def evaluation_function(response: Any, answer: Any, params: Params) -> Result:
     to output the evaluation response.
     """
 
-    return Result(is_correct=True)
+    try:
+        feedback_string = params["custom_feedback"]
+    except:
+        feedback_string = "Thank you. Your response has been logged"
+
+    return Result(is_correct=True, feedback=feedback_string)
